@@ -45,6 +45,7 @@ regionPlot <- function(cnv_file, from=NA, to=NA, chrom="X", ylim=c(-5,5), tick=1
     draw_bps <- F
   }
 
+
   cat("Chrom:", chrom, "\n")
   cat("Specified ylim", ylim , "\n")
 
@@ -119,10 +120,10 @@ regionPlot <- function(cnv_file, from=NA, to=NA, chrom="X", ylim=c(-5,5), tick=1
   # p <- p + annotate("rect", xmin=32066206, xmax=32068392, ymin=(min(ylim)), ymax=max(ylim), alpha=.1, fill="red")
 
   if(notch){
-    outfile <- paste(sample, ".", "Notch", ".pdf", sep = "")
+    outfile <- paste(sample, ".", "Notch", ".png", sep = "")
   }
   else {
-    outfile <- paste(sample, ".", chrom, "_", from, "-", to, ".pdf", sep = "")
+    outfile <- paste(sample, ".", chrom, "_", from, "-", to, ".png", sep = "")
   }
   cat("Writing file", outfile, "to '../plots/regions/'", "\n")
   ggsave(paste("plots/regions/", outfile, sep = ""), width = 20, height = 10)

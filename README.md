@@ -15,18 +15,29 @@ library(devtools)
 install_github("nriddiford/cnvPlotteR")
 library(cnvPlotteR)
 ```
+## Plot Control Freec normalised CNs
 
-## Input
+The function `freecPlot` will plot all CNs for for all chromosomes (if using a non-Drosophila genome the variables `chroms` and `autosomes` should be adjusted accordingly). Sub-clonal CNs are highlighted too.   
+
+
+```{R}
+file.names <- dir("data/freec", pattern = ".txt")
+for (f in file.names){
+  freecPlot(cnv_file=paste("data/freec/",f, sep=''))
+}
+```
+
+## Other plotting functions are for CNV-Seq output
 
 * Designed to read output from [CNV-Seq](http://tiger.dbs.nus.edu.sg/cnv-seq/doc/manual.pdf), although should work for any coverage data with cols:
 
-"chromosome"  
-"start" - 1-based window start  
-"end" - 1-based window end  
-"test" - number of reads mapped in window in tumour sample  
-"ref" - number of reads mapped in window in normal sample  
-"position" - (end - start) +1  
-"log2" - log2 FC for tumour/normal reads per window  
+"chromosome"
+"start" - 1-based window start
+"end" - 1-based window end
+"test" - number of reads mapped in window in tumour sample
+"ref" - number of reads mapped in window in normal sample
+"position" - (end - start) +1
+"log2" - log2 FC for tumour/normal reads per window
 
 Example output from CNV-Seq:
 
@@ -77,6 +88,17 @@ for (f in file.names){
  regionPlot(cnv_file="data/w500/test.window-500.cnv", from=3050000, to=3450000, chrom="X", ylim=c(-7,7), bp1=3129368,bp2=3352041, tick=100000, title="222Kb DEL on X")
  ```
 
+### Plot coverage for all '.count' files
+
+* Use defaults: readLength = 100, windowSize = 50000
+
+```{R}
+file.names <- dir("data/counts/", pattern = ".count")
+
+for (f in file.names){
+  plotCoverage(counts_file=paste("data/counts/",f, sep=''))
+}
+```
 
 # To do
 - [x] Allow user to control Y axis limits (for subtle CN changes)
