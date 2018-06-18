@@ -29,6 +29,8 @@ for (f in file.names){
 }
 ```
 
+<img src="plots/freec/test_freec_cn.png" alt="Freec example"/>
+
 ## Other plotting functions are for CNV-Seq output
 
 * Designed to read output from [CNV-Seq](http://tiger.dbs.nus.edu.sg/cnv-seq/doc/manual.pdf), although should work for any coverage data with cols:
@@ -59,8 +61,9 @@ Example output from CNV-Seq:
 * Currently assumes *Drosophila* genome, and excludes chroms 4 and Y for grid plot. Will look for .cnv files in 'data/' unless alternative path provided
 
 ```
-allPlot()
+allPlot(path = 'path/to/cnv_files/')
 ````
+<img src="plots/test_CNVs.png" alt="allPlot example"/>
 
 ### Plot single chromosome
 
@@ -69,6 +72,8 @@ allPlot()
 ```
 chromPlot(cnv_file = "data/test.window-10000.cnv")
 ```
+
+<img src="plots/chroms/test_X_CNVs.png" alt="chromPlot X example"/>
 
 * Plot all chroms for all files:
 
@@ -90,6 +95,8 @@ for (f in file.names){
  regionPlot(cnv_file="data/w500/test.window-500.cnv", from=3050000, to=3450000, chrom="X", ylim=c(-7,7), bp1=3129368,bp2=3352041, tick=100000, title="222Kb DEL on X")
  ```
 
+ <img src="plots/regions/test.X_3050000-3450000.png" alt="regionPlot X example"/>
+
 ### Plot coverage for all '.count' files
 
 * Use defaults: readLength = 100, windowSize = 50000
@@ -101,6 +108,10 @@ for (f in file.names){
   plotCoverage(counts_file=paste("data/counts/",f, sep=''))
 }
 ```
+
+<img src="plots/coverage/test_coverage.png" alt="plotCoverage
+example"/>
+
 
 # To do
 - [x] Allow user to control Y axis limits (for subtle CN changes)
