@@ -10,8 +10,8 @@
 #' @examples allPlot(path="data/")
 
 
-allPlot <- function(path = 'data/') {
-  dir.create(file.path("plots"), showWarnings = FALSE)
+allPlot <- function(path = 'data/', outdir = 'plots') {
+  dir.create(file.path(outdir), showWarnings = FALSE)
   file.names <- dir(path, pattern = ".cnv")
 
   for (i in 1:length(file.names)) {
@@ -21,12 +21,10 @@ allPlot <- function(path = 'data/') {
 
     read_file_in <- read.delim(paste(path, file.names[i], sep = ""), header = T)
     clean_file <- cleanR(read_file_in)
-    clean_file <- filter(clean_file, chromosome != "Y" & chromosome != "4")
+    clean_file <- dplyr::filter(clean_file, chromosome != "Y" & chromosome != "4")
 
     # cols <- brewer.pal(n = 7, name = "RdBu")
     cols <- c("#941212FE", "#C44747FE", "#B3A5A5FE", "#4FA9BDFE", "#248DB3FE")
-
-
     ylim<-c(-5,5)
 
     p <- ggplot()
@@ -49,8 +47,8 @@ allPlot <- function(path = 'data/') {
     p <- p + ggtitle(paste(sample))
 
     outfile <- paste(sample, "_", "CNVs", ".png", sep = "")
-    cat("Writing file", outfile, "to `plots/`", "\n")
-    ggsave(paste("plots/", outfile, sep = ""), width = 20, height = 10)
+    cat("Writing file", outfile, "to", outdir, "\n")
+    ggsave(paste(outdir, outfile, sep = "/"), width = 20, height = 10)
 
     }
 }
