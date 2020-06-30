@@ -9,7 +9,7 @@
 #' @export
 #' @examples plotCoverage(counts_file = 'data/counts/A785-A788R11.tagged.SC.hits.filt-vs-A785-A788R12.tagged.SC.hits.filt.window-50000.minw-4.count', readLength=100,windowSize = 50000)
 
-plotCoverage <- function(counts_file = 'data/counts/A785-A788R11.tagged.SC.hits.filt-vs-A785-A788R12.tagged.SC.hits.filt.window-50000.minw-4.count', readLength=100,windowSize = 10000){
+plotCoverage <- function(counts_file = 'data/counts/A785-A788R11.tagged.SC.hits.filt-vs-A785-A788R12.tagged.SC.hits.filt.window-50000.minw-4.count', readLength=150, windowSize = 50000){
   counts <- read.delim(counts_file, header = T)
 
   cat("Specified read length:", readLength , "\n")
@@ -34,9 +34,8 @@ plotCoverage <- function(counts_file = 'data/counts/A785-A788R11.tagged.SC.hits.
     dplyr::mutate(pos = start/1000000) %>%
     dplyr::select(sample, chromosome, depth, pos) %>%
 
-    dplyr::filter(chromosome != "Y", chromosome != 4) %>%
+    dplyr::filter(!chromosome %in% c("X", "Y"), chromosome != 4) %>%
     dplyr::arrange(chromosome, pos)
-
 
     p <- ggplot(df) +
       geom_density(aes(pos, depth, fill=sample, colour=sample), stat='identity', alpha =0.6) +
